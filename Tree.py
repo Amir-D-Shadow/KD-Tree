@@ -142,7 +142,8 @@ class kd_tree:
                 
                 return node2
 
-   # currnode:node, pivot:array
+
+    # currnode:node, pivot:array
     def closest_node(self,currnode,pivot,depth = 0):
         
         if currnode is None:
@@ -151,9 +152,8 @@ class kd_tree:
 
         l = depth % self.dimension 
 
-        pivot_node = node(pivot)
 
-        if currnode.data[l] <= pivot_node.data[l]:
+        if currnode.data[l] >= pivot[l]:
 
                 next_node = currnode.left
                 brother_node = currnode.right
@@ -166,7 +166,7 @@ class kd_tree:
 
         best_node = self._closer_node( self.closest_node(next_node,pivot,depth+1) , currnode , pivot) 
 
-        if self.distance(best_node.data,pivot_node.data,self.p) > abs(currnode.data[l] - pivot_node.data[l]):
+        if self.distance(best_node.data,pivot,self.p) > abs(currnode.data[l] - pivot[l]):
 
                 best_node = self._closer_node( self.closest_node(brother_node,pivot,depth+1) , best_node , pivot)
 
